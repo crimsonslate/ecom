@@ -42,15 +42,15 @@ class Order(models.Model):
             raise ValueError("Quantity must be a positive integer.")
 
         product = self.get_product_by_id(product_id)
-        orderitem, created = OrderItem.objects.get_or_create(
+        order_item, created = OrderItem.objects.get_or_create(
             order=self, product=product
         )
         if created:
-            orderitem.quantity = quantity
-            orderitem.save()
+            order_item.quantity = quantity
+            order_item.save()
         else:
-            orderitem.quantity += quantity
-            orderitem.save()
+            order_item.quantity += quantity
+            order_item.save()
 
         return None
 
