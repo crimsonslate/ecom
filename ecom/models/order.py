@@ -37,7 +37,7 @@ class Order(models.Model):
 
     @transaction.atomic
     def add_product(self, product_id: int, quantity: int = 1) -> None:
-        """Add any quantity of :model:`ecom.Product`s (by id) to this order."""
+        """Adds any quantity of :model:`ecom.Product`s (by id). Quantity must be a positive integer."""
         if quantity <= 0:
             raise ValueError("Quantity must be a positive integer.")
 
@@ -59,7 +59,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    """Intermediate model to represent a product and its quantity in an :model:`ecom.Order`."""
+    """Represents a :model:`ecom.Product` and its quantity in an :model:`ecom.Order`."""
 
     order = models.ForeignKey("Order", related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
