@@ -35,6 +35,8 @@ class Order(models.Model):
         self.update(status=new_status.value)
         self.save()
 
+        return None
+
     @transaction.atomic
     def add_product(self, product_id: int, quantity: int = 1) -> None:
         """Adds any quantity of :model:`ecom.Product`s (by id). Quantity must be a positive integer."""
