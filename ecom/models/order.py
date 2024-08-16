@@ -12,7 +12,7 @@ class Order(models.Model):
         CREATED = "CRE", _("Order was created.")
         CANCELED = "CAL", _("Order was canceled.")
         FULFILLED = "FUL", _("Products were delivered to customer.")
-        SHIPPING = "SHP", _("Order is being shipped.")
+        SHIPPED = "SHP", _("Order was shipped.")
 
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     note = models.TextField(max_length=2048, blank=True, default="")
