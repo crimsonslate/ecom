@@ -12,7 +12,7 @@ class Order(models.Model):
         CREATED = "CRE", _("Order was created.")
         CANCELED = "CAL", _("Order was canceled.")
         FULFILLED = "FUL", _("Products were delivered to customer.")
-        SHIPPING = "SHP", _("Order is being shipped.")
+        SHIPPED = "SHP", _("Order was shipped.")
 
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     note = models.TextField(max_length=2048, blank=True, default="")
@@ -35,22 +35,24 @@ class Order(models.Model):
         self.update(status=new_status.value)
         self.save()
 
+        return None
+
     @transaction.atomic
     def add_product(self, product_id: int, quantity: int = 1) -> None:
-        """Add any quantity of :model:`ecom.Product`s (by id) to this order."""
+        """Adds any quantity of :model:`ecom.Product`s (by id). Quantity must be a positive integer."""
         if quantity <= 0:
             raise ValueError("Quantity must be a positive integer.")
 
         product = self.get_product_by_id(product_id)
-        orderitem, created = OrderItem.objects.get_or_create(
+        order_item, created = OrderItem.objects.get_or_create(
             order=self, product=product
         )
         if created:
-            orderitem.quantity = quantity
-            orderitem.save()
+            order_item.quantity = quantity
+            order_item.save()
         else:
-            orderitem.quantity += quantity
-            orderitem.save()
+            order_item.quantity += quantity
+            order_item.save()
 
         return None
 
@@ -59,7 +61,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    """Intermediate model to represent a product and its quantity in an :model:`ecom.Order`."""
+    """Represents a :model:`ecom.Product` and its quantity in an :model:`ecom.Order`."""
 
     order = models.ForeignKey("Order", related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
