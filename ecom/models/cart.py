@@ -31,12 +31,13 @@ class Cart(models.Model):
     @transaction.atomic
     def create_order(self) -> None:
         """Creates an :model:`ecom.Order` based on this cart's :model:`ecom.CartItem`s."""
-
+        raise NotImplementedError
         return None
 
     @transaction.atomic
     def clear_items(self) -> None:
         """Clears the cart of :model:`ecom.CartItem`s."""
+        raise NotImplementedError
         self.items.delete()
         self.save()
         return None
