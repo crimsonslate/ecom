@@ -45,7 +45,7 @@ class Cart(models.Model):
     def add_product(self, product_id: int, quantity: int = 1) -> None:
         """Adds any quantity of :model:`ecom.Product`s by id. Quantity must be a positive integer."""
         if quantity <= 0:
-            raise ValueError("Quantity must be a positive integer.")
+            raise ValueError(f"Invalid quantity '{quantity}'. Quantity must be a positive integer.")
 
         product = self.get_product_by_id(product_id)
         cart_item, created = CartItem.objects.get_or_create(product=product)
@@ -61,7 +61,7 @@ class Cart(models.Model):
     def rm_product(self, product_id: int, quantity: int = 1) -> None:
         """Removes any quantity of :model:`ecom.Product`s by id. Quantity must be a positive integer."""
         if quantity <= 0:
-            raise ValueError("Quantity must be a positive integer.")
+            raise ValueError(f"Invalid quantity '{quantity}'. Quantity must be a positive integer.")
 
         product = self.get_product_by_id(product_id)
         try:
