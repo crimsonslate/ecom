@@ -1,14 +1,10 @@
-from django.views import View
-from django.views.generic import ListView
+from django.views.generic import TemplateView
 
-from ecom.models import Cart, CartItem
+class CartView(TemplateView):
+    content_type = "text/html"
+    http_method_names = ["get", "post"]
+    template_name = "ecom/cart.html"
 
-class CartView(View):
-    model = Cart
-
-class CartItemListView(ListView):
-    model = CartItem
-
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        return qs
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

@@ -7,27 +7,42 @@ from ecom.models.forms.product import ProductCreationForm, ProductDeletionForm, 
 class ProductDetailView(DetailView):
     model = Product
 
+    content_type = "text/html"
+    context_object_name = "product"
+    extra_context = None
+    http_method_names = ["get", "post"]
+    queryset = Product.objects.filter(visibility__exact="VIS")
+
 class ProductListView(ListView):
     model = Product
 
+    content_type = "text/html"
+    context_object_name = "products_list"
+    extra_context = None
+    http_method_names = ["get", "post"]
+    queryset = Product.objects.filter(visibility__exact="VIS")
+
 class ProductCreateView(CreateView):
+    form_class = ProductCreationForm
+    model = Product
+
     content_type = "text/html"
     http_method_names = ["get", "post"]
     fields = ["name", "desc", "visibility", "price", "category"]
-    model = Product
     queryset = Product.objects.all()
-    form_class = ProductCreationForm
 
 class ProductDeleteView(DeleteView):
+    form_class = ProductDeletionForm
+    model = Product
+
     content_type = "text/html"
     http_method_names = ["get", "post"]
-    model = Product
     queryset = Product.objects.all()
-    form_class = ProductDeletionForm
 
 class ProductUpdateView(UpdateView):
+    form_class = ProductUpdateForm
+    model = Product
+
     content_type = "text/html"
     http_method_names = ["get", "post"]
-    model = Product
     queryset = Product.objects.all()
-    form_class = ProductUpdateForm
