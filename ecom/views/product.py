@@ -18,7 +18,7 @@ class ProductCreateView(CreateView):
     queryset = Product.objects.all()
     form_class = ProductCreationForm
 
-class ProductDeletionView(DeleteView):
+class ProductDeleteView(DeleteView):
     content_type = "text/html"
     http_method_names = ["get", "post"]
     model = Product
