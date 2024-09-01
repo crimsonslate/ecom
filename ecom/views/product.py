@@ -1,13 +1,10 @@
-from django.views.generic import DetailView, ListView
+from django.views.generic import CreateView
 
 from ecom.models import Product
 
-class ProductDetailView(DetailView):
+class ProductCreateView(CreateView):
+    content_type = "text/html"
+    http_method_names = ["get", "post"]
+    fields = ["name", "desc", "visibility", "price", "category"]
     model = Product
-    context_object_name = "product"
-    queryset = Product.objects.filter(visibility__exact="VIS").all()
-
-class ProductListView(ListView):
-    model = Product
-    context_object_name = "available_products"
     queryset = Product.objects.filter(visibility__exact="VIS").all()
