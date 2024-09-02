@@ -9,7 +9,7 @@ def validate_positive(value: float) -> None:
     """Raises ValidationError if the value is zero or negative."""
     if value <= 0:
         raise ValidationError(
-            _("Price cannot be less than or equal to zero. Price: %(value)s"),
+            _("'%(value)s' cannot be less than or equal to zero."),
             params={"value": value},
         )
 
