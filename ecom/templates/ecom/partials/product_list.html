@@ -1,10 +1,14 @@
-<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    <th scope="row"
-        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        <a href="{% url 'product' product.id %}"
-            class="hover:underline hover:underline-offset-auto">{{ product.name|title }}</a>
-    </th>
-    <td class="px-6 py-4">${{ product.price|floatformat:"-2g" }}</td>
-    <td class="px-6 py-4">{{ product.stock }}</td>
-    <td class="px-6 py-4">{{ product.desc|truncatewords:8 }}</td>
-</tr>
+<li>
+    <a href="{% url 'product' product.id %}" class="group block overflow-hidden">
+        <img src="#" alt="{{ product.name|title }} Main Image" class="h-auto max-w-md"/>
+        <div class="relative bg-white pt-3">
+            <h3 class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                {{ product.name }}
+            </h3>
+            <p class="mt-2">
+                <span class="sr-only">Price</span>
+                <span class="tracking-wider text-gray-900">${{ product.price|floatformat:"-2g" }}</span>
+            </p>
+        </div>
+    </a>
+</li>

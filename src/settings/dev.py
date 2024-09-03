@@ -1,4 +1,3 @@
-from os import environ as env
 from pathlib import Path
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
@@ -37,34 +36,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    },
-    "postgresql": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env.get("PSQL_NAME", "postgres"),
-        "USER": env.get("PSQL_USER", "postgres"),
-        "PASSWORD": env.get("PSQL_PASS", ""),
-        "HOST": env.get("PSQL_HOST", "0.0.0.0"),
-        "PORT": env.get("PSQL_PORT", "5432"),
-    },
-}
-
-ECOM_USERDATA = {
-    "NAME": "Crimson Slate",
-    "ADDRESS": {
-        "STREET": "123 Main St",
-        "CITY": "Houston",
-        "STATE": "TX",
-        "ZIP": "77065",
-    },
-    "PHONE": {
-        "MAIN": "+15555555555",
-        "SUPPORT": "+15555555555",
-        "SALES": "+15555555555",
-    },
-    "LINKS": {
-        "HOMEPAGE": "https://crimsonslate.com/",
-        "REPOSITORY": "https://github.com/crimsonslate/ecom/",
-        "ISSUES": "https://github.com/crimsonslate/ecom/issues/",
     },
 }
 
