@@ -15,7 +15,7 @@ urlpatterns = [
 
     path("orders/", views.OrderListView.as_view(), name="product list"),
     path("orders/inspect/<int:pk>/", views.OrderDetailView.as_view(), name="order detail"),
-    path("orders/<int:year>/", ...),
-    path("orders/<int:year>/<int:month>/", ...),
-    path("orders/<int:year>/<int:month>/<str:weekday>/", ...),
+    #path("orders/<int:year>/", ...),
+    #path("orders/<int:year>/<int:month>/", ...),
+    #path("orders/<int:year>/<int:month>/<str:weekday>/", ...),
 ]

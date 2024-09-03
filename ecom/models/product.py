@@ -116,7 +116,7 @@ class ProductVideo(models.Model):
 
 
 class ProductCategory(models.Model):
-    """Intermediate class for organizing :model:`ecom.Product`s."""
+    """Categorizes :model:`ecom.Product`s."""
 
     class Meta:
         verbose_name = "Product Category"
