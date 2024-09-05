@@ -16,8 +16,9 @@ class CartItem(models.Model):
 class Cart(models.Model):
     """Holds :model:`ecom.CartItem`s. User is optional."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
+    date_last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return f"{self.user.username}'s cart"
@@ -32,15 +33,11 @@ class Cart(models.Model):
     def create_order(self) -> None:
         """Creates an :model:`ecom.Order` based on this cart's :model:`ecom.CartItem`s."""
         raise NotImplementedError
-        return None
 
     @transaction.atomic
     def clear_items(self) -> None:
         """Clears the cart of :model:`ecom.CartItem`s."""
-        raise NotImplementedError
         self.items.delete()
-        self.save()
-        return None
 
     @transaction.atomic
     def add_product(self, product_id: int, quantity: int = 1) -> None:
@@ -68,7 +65,7 @@ class Cart(models.Model):
         try:
             cart_item = self.items.get(product=product)
         except CartItem.DoesNotExist:
-            raise ValueError(f"Product <{product.id}:'{product.name}'> not found in this cart.")
+            raise ValueError(f"Product {product.id}:'{product.name}' not found in this cart.")
 
         if quantity > cart_item.quantity:
             raise ValueError(

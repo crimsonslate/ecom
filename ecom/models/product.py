@@ -4,14 +4,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext_lazy as _
 
-
-def validate_positive(value: float) -> None:
-    """Raises ValidationError if the value is zero or negative."""
-    if value <= 0:
-        raise ValidationError(
-            _("'%(value)s' cannot be less than or equal to zero."),
-            params={"value": value},
-        )
+from djmoney.models.fields import MoneyField
 
 
 def validate_slug_is_unique(value: str) -> None:
@@ -22,7 +15,6 @@ def validate_slug_is_unique(value: str) -> None:
                 _("'%(value)s' would generate a non-unique slug."),
                 params={"value": value},
             )
-
 
 class Product(models.Model):
     """A purchasable item in the store."""
@@ -51,9 +43,7 @@ class Product(models.Model):
         choices=Visibility,
         default=Visibility.UNAVAILABLE,
     )
-    price = models.DecimalField(
-        max_digits=6, decimal_places=2, validators=[validate_positive]
-    )
+    price = MoneyField(max_digits=19, decimal_places=4, default_currency="USD")
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(
         "ProductCategory", on_delete=models.CASCADE, null=True, blank=True, default=None

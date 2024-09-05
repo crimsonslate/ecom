@@ -33,7 +33,6 @@ class Order(models.Model):
     @transaction.atomic
     def update_status(self, new_status: Status) -> None:
         self.update(status=new_status.value)
-        self.save()
 
     @transaction.atomic
     def add_product(self, product_id: int, quantity: int = 1) -> None:

@@ -1,0 +1,15 @@
+{% extends "ecom/layout.html" %}
+{% block content %}
+<section class="bg-stone-100">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <form action="{% url 'checkout' %}"class="mx-auto max-w-3xl">
+            <h1 class="text-center text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
+            <ul>
+            {% for item in items %}
+                {% include "ecom/partials/cartitem_li.html" %}
+            {% endfor %}
+            <ul>
+        </form>
+    </div>
+</section>
+{% endblock content %}

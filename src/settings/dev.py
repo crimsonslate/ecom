@@ -17,6 +17,8 @@ USE_I18N = True
 USE_TZ = True
 WSGI_APPLICATION = "src.wsgi.application"
 
+CURRENCIES = ("USD", "CAD")
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_browser_reload",
     "django_htmx",
+    "djmoney",
     "ecom.apps.EcomConfig",
     "tailwind",
     "theme",

@@ -4,9 +4,12 @@ from . import views
 
 urlpatterns = [
     path("cart/", views.CartView.as_view(), name="cart"),
-    path("cart/add/", views.CartView.as_view(), name="add to cart"),
-    path("cart/rm/", views.CartView.as_view(), name="rm from cart"),
-    path("cart/clear/", views.CartView.as_view(), name="clear cart"),
+    path("cart/checkout/", views.CartView.checkout, name="checkout"),
+    path("cart/qty/<int:product_id>/<int:quantity>/", views.CartView.set_quantity, name="add to cart"),
+    path("cart/qty/<int:product_id>/<int:quantity>/", views.CartView.incr_quantity, name="add to cart"),
+    path("cart/qty/<int:product_id>/<int:quantity>/", views.CartView.decr_quantity, name="add to cart"),
+    path("cart/clear/<int:product_id>/", views.CartView.clear_item, name="clear item"),
+    path("cart/clear/all/", views.CartView.clear_all, name="clear all"),
 
     path("products/create/", views.ProductCreateView.as_view(), name="product create"),
     path("products/<str:slug>/", views.ProductDetailView.as_view(), name="product detail"),
